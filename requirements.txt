@@ -1,0 +1,22 @@
+#requirements.txt Python 3.12.3 compatível
+#web framework
+fastapi==0.104.1
+uvicorn[standard]==0.24.0
+python-multipart==0.0.6
+
+#data analysis-compatíveis com 3.12
+pandas==2.2.1
+openpyxl==3.1.2
+numpy==1.26.0  # para com Python 3.12
+
+#visualization
+pyvis==0.3.2
+networkx==3.2.1
+matplotlib==3.8.0
+
+#utilities
+python-dotenv==1.0.0
+pydantic==2.5.0
+
+#development
+pytest==7.4.3
