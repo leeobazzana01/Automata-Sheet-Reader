@@ -20,7 +20,7 @@ def ler_planilha(nome_arquivo: str): #funçao q le a planilha usando pandas
 
         raise FileNotFoundError(f"Planilha não encontrada na Pasta: {caminho}")
     
-    df = pd.read_csv(caminho)  #lê o arquivo excel (.xlsx) usando pandas
+    df = pd.read_csv(caminho, sep=";")  #lê o arquivo excel (.xlsx) usando pandas
     return df
 
 if __name__ == "__main__": #classe principal para rodar o projeto
@@ -28,21 +28,26 @@ if __name__ == "__main__": #classe principal para rodar o projeto
     arquivo = input("Digite o Nome da Planilha:\n") #lê nome da planilha
     
     try: #bloco q tenta realizar a leitura
-        
+        dicionario_automato = {}
+
         df = ler_planilha(arquivo) #lê a planilha
 
         print("PLANILHA CARREGADA:", arquivo)
         
-        print("DIMENSÃO (LINHAS, COLUNAS):", df.shape) #df.shape é uma tupla (linhas, colunas)
+        formato = list(df.shape) #converte pra lista, o df.shape eh uma tupla (linhas, colunas)
 
-        print(df.head()) #mostra 5 primeiras linhas
+        colunas = list(df.columns) #colunas em formato de lista
 
-        print("COLUNAS: ", df.columns) #colunas
+        linhas = list(df.index) #converte para lista as linhas
+    
+        for idx, row in df.iterrows(): #idx é o índice, row são as colunas
+            
+            estado = row[df.columns[0]] #as CHAVES tem o nome do estado
+            
+            dicionario_automato[estado] = row[1:].to_dict() #demais colunas viram o dicionário
 
-        print("INFORMAÇÃO: ", df.info())
-        
-        
-
+        print("DICIONÁRIO DO AUTÔMATO: ", dicionario_automato)
+         
     except FileNotFoundError as e: #exceção aponta caminho atual caso a leitura não dê certo
         
         print("ERRO:", e)
